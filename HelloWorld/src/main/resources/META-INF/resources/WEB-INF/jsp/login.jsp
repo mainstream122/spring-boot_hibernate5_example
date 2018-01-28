@@ -8,7 +8,7 @@
 </head>
 <body>
 	<form action="/account/login" method="post">
-		<input type="hidden" name="_csrf">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		EMAIL : <input type="text" name="email" /><p/>
 		PASSWORD : <input type="password" name="password" />
 		<button type="submit">제출</button>
