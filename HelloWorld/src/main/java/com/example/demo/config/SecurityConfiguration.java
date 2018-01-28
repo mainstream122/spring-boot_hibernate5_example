@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
@@ -16,6 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.example.demo.common.CustomAuthenticationFilter;
 import com.example.demo.common.CustomAuthenticationProvider;
+import com.example.demo.common.MyAuthenticationEntryPoint;
 import com.example.demo.common.XSRFTokenFilter;
 
 @Configuration
@@ -23,7 +23,7 @@ import com.example.demo.common.XSRFTokenFilter;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private AuthenticationEntryPoint authenticationEntryPoint;
+	private MyAuthenticationEntryPoint authenticationEntryPoint;
 	
 	@Autowired
 	private CustomAuthenticationProvider authenticationProvider;
@@ -45,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 		http.authorizeRequests()
-			.antMatchers("/doctors/**", "/account/**").permitAll()
+			.antMatchers(/*"/doctors/**",*/ "/account/**", "/").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.addFilterAfter(new XSRFTokenFilter(), CsrfFilter.class)
