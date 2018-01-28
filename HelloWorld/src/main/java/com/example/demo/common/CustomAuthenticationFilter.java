@@ -47,7 +47,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 	}
 	
 	private UsernamePasswordAuthenticationToken getUsernamePasswordAuthenticationToken(HttpServletRequest request) throws IOException {
-		StringBuffer sb = new StringBuffer();
+		/*StringBuffer sb = new StringBuffer();
 		BufferedReader bufferedReader = null;
 		String content = null;
 		User sr = null;
@@ -76,6 +76,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 				}
 			}
 		}
-		return new UsernamePasswordAuthenticationToken(sr.getEmail(), sr.getPassword());
+		return new UsernamePasswordAuthenticationToken(sr.getEmail(), sr.getPassword());*/
+		return new UsernamePasswordAuthenticationToken(request.getParameter("email"), request.getParameter("password"));
 	}
 }

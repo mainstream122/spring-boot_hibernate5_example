@@ -48,6 +48,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(/*"/doctors/**",*/ "/account/**", "/").permitAll()
 			.anyRequest().authenticated()
 			.and()
+			.formLogin()
+			.loginPage("/account/login")
+			.permitAll()
+			.and()
 			.addFilterAfter(new XSRFTokenFilter(), CsrfFilter.class)
 			.csrf()
 			.csrfTokenRepository(csrfTokenRepository());
