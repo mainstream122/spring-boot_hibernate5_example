@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.service.UserService;
@@ -41,7 +42,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		if (!password.equals(user.getPassword())) {
 			throw new BadCredentialsException("Wrong password.");
 		}
-		Collection<? extends GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		if (user.getAuth().equals(UserAuthorities.ADMIN.toString())) {
+			authorities.add(new SimpleGrantedAuthority(UserAuthorities.ADMIN.toString()));
+		} else if (user.getAuth().equals(UserAuthorities.MEMBER.toString())) {
+			authorities.add(new SimpleGrantedAuthority(UserAuthorities.MEMBER.toString()));
+		}
 		
 		return new UsernamePasswordAuthenticationToken(user, password, authorities);
 	}

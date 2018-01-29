@@ -26,6 +26,9 @@ public class User {
 	private String email;
 	@Column(name="password")
 	private String password;
+	@Column(name="auth")
+	private String auth;
+	
 	public int getUserid() {
 		return userid;
 	}
@@ -44,5 +47,10 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public String getAuth() {
+		return auth;
+	}
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
 }

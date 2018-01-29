@@ -16,6 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.example.demo.common.CustomAuthenticationFilter;
 import com.example.demo.common.CustomAuthenticationProvider;
 import com.example.demo.common.MyAuthenticationEntryPoint;
+import com.example.demo.common.UserAuthorities;
 import com.example.demo.common.XSRFTokenFilter;
 
 @Configuration
@@ -40,13 +41,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		filter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/account/login", "POST"));
 		return filter;
 	}
+	
+	enum Authorities {
+	    ADMIN, MEMBER
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 		http.authorizeRequests()
-			.antMatchers(/*"/doctors/**",*/ "/account/**", "/").permitAll()
-			.anyRequest().authenticated()
+			.antMatchers("/account/**", "/").permitAll()
+			.antMatchers("/admin/**").hasAuthority(UserAuthorities.ADMIN.toString())
+			.anyRequest().authenticated() // /doctors/**, /* 
 			.and()
 			.formLogin()
 			.loginPage("/account/login")

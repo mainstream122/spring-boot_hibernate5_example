@@ -27,6 +27,6 @@ public class MyAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 		//response.addHeader("WWW-Authenticate", "Basic realm=\"" + getRealmName() + "\"");
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		PrintWriter writer = response.getWriter();
-		writer.print("HTTP Status 401 - " + authException.getMessage());
+		writer.print("HTTP Status 401 - " + authException.getMessage() + ", Move to Login Page");
 	}
 }
