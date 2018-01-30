@@ -26,7 +26,11 @@ public class MyAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 			AuthenticationException authException) throws IOException, ServletException {
 		//response.addHeader("WWW-Authenticate", "Basic realm=\"" + getRealmName() + "\"");
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		response.setContentType("text/html");
 		PrintWriter writer = response.getWriter();
-		writer.print("HTTP Status 401 - " + authException.getMessage() + ", Move to Login Page");
+		writer.println("<!DOCTYPE html>");
+		writer.println("<body>");
+		writer.println("HTTP Status 401 - " + authException.getMessage() + ", <a href='" + request.getContextPath() + "/account/login'>Move to Login Page</a>");
+		writer.println("</body>");
 	}
 }
