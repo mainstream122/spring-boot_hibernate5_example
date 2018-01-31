@@ -3,6 +3,8 @@ package com.example.demo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.common.UserNotFoundException;
@@ -24,6 +26,15 @@ public class UserServiceImpl implements UserService {
 		List<User> users = (List<User>)userDAO.findByEmail(email);
 		if (users.size()==0) {
 			throw new UserNotFoundException("User does not exist int the database.");
+		}
+		return users.get(0);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		List<User> users = (List<User>)userDAO.findByEmail(username);
+		if (users.size()==0) {
+			throw new UsernameNotFoundException("User does not exist int the database.");
 		}
 		return users.get(0);
 	}
