@@ -21,7 +21,7 @@ import com.example.demo.controller.SignupIntercepter;
 @Configuration
 @EntityScan("com.example.demo.*")
 @EnableTransactionManagement
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.yml")
 public class AppConfig extends WebMvcConfigurerAdapter {
 	  @Value("${db.driver}")
 	  private String DB_DRIVER;
@@ -81,7 +81,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new SignupIntercepter()).addPathPatterns("/account/signup/process");
+		registry.addInterceptor(new SignupIntercepter()).addPathPatterns("/account/processLogin");
 	}
 	  
 }

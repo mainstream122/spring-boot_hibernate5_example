@@ -1,0 +1,23 @@
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  thymeleaf:
+    cache: false
+
+db:
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://127.0.0.1:3306/healthapp?useSSL=false
+  username: root
+  password: admin
+
+hibernate:
+  dialect: org.hibernate.dialect.MySQL5Dialect
+  show_sql: true
+  hbm2ddl:
+    auto: create
+
+entitymanager:
+  packagesToScan: com.example.demo.vo

@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.vo.User;
@@ -45,7 +48,7 @@ public class UserAccountController {
 		return "login";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+	@RequestMapping(value="/processLogin", method=RequestMethod.POST)
 	public String processLogin(User reqUser, HttpServletRequest request, HttpSession session) {
 		Authentication authentication = null;
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(reqUser.getEmail(), reqUser.getPassword());
@@ -68,4 +71,16 @@ public class UserAccountController {
 		}
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value="/user", method=RequestMethod.GET, produces="application/json")
+	@ResponseBody
+	public Principal user(Principal principal) {
+	    return principal;
+	}
+	
+	@RequestMapping("/facebook")
+	public String facebook() {
+		return "error";
+	}
+	
 }
